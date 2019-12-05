@@ -210,6 +210,10 @@ router.get('/*', async (req, res, next) => {
       _.set(res, 'locals.siteConfig.lang', pageArgs.locale)
 
       if (page) {
+        const pageTree = await WIKI.models.pageTree.getPageTree({
+          path: page.path
+        });
+
         _.set(res.locals, 'pageMeta.title', page.title)
         _.set(res.locals, 'pageMeta.description', page.description)
         const sidebar = await WIKI.models.navigation.getTree({ cache: true })
@@ -225,7 +229,7 @@ router.get('/*', async (req, res, next) => {
           }
           res.render('legacy/page', { page, sidebar, injectCode, isAuthenticated: req.user && req.user.id !== 2 })
         } else {
-          res.render('page', { page, sidebar, injectCode })
+          res.render('page', { page, sidebar, injectCode, pageTree })
         }
       } else if (pageArgs.path === 'home') {
         _.set(res.locals, 'pageMeta.title', 'Welcome')

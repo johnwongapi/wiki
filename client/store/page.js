@@ -14,7 +14,8 @@ const state = {
   tags: [],
   title: '',
   updatedAt: '',
-  mode: ''
+  mode: '',
+  pageTree: ''
 }
 
 export default {

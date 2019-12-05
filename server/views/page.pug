@@ -22,6 +22,7 @@ block body
       :toc=page.toc
       :page-id=page.id
       :sidebar=sidebar
+      page-tree=pageTree
       )
       template(slot='contents')
         div(v-pre)!= page.render
